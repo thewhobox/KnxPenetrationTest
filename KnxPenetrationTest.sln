@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnxPenetrationTest", "KnxPenetrationTest.csproj", "{222707A1-A945-463B-8C9C-C81400AB3430}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaenx.Konnect", "..\Kaenx-Konnect\Kaenx.Konnect\Kaenx.Konnect.csproj", "{7DA84A39-08EE-49E5-8506-60191D3DE371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{222707A1-A945-463B-8C9C-C81400AB3430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{222707A1-A945-463B-8C9C-C81400AB3430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{222707A1-A945-463B-8C9C-C81400AB3430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA84A39-08EE-49E5-8506-60191D3DE371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA84A39-08EE-49E5-8506-60191D3DE371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA84A39-08EE-49E5-8506-60191D3DE371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA84A39-08EE-49E5-8506-60191D3DE371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

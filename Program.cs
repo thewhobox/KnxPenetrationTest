@@ -26,37 +26,36 @@ if(string.IsNullOrEmpty(groupx)) groupx = "15/7/255";
 MulticastAddress group = MulticastAddress.FromString(groupx);
 Console.Write("Daten senden? (n) [j/n] ");
 bool send = (Console.ReadLine() ?? "") == "j";
-
+Console.Write("Empfangene Telegramme anzeigen? (n) [j/n] ");
+bool show = (Console.ReadLine() ?? "") == "j";
 
 byte[] data = new byte[size];
 Random.Shared.NextBytes(data);
 
-List<Kaenx.Konnect.Connections.KnxIpTunneling> conns = new();
-List<Kaenx.Konnect.Classes.BusCommon> tunnels = new();
+List<TunnelConnection> conns = new();
 
 Console.WriteLine($"");
 Console.WriteLine($"Verbindungen werden aufgebaut");
 for(int i = 1; i <= count; i++)
 {
-    try{
-        Kaenx.Konnect.Connections.KnxIpTunneling conn = new (ip, port);
-        await conn.Connect();
-        conns.Add(conn);
-        tunnels.Add(new(conn));
-        Console.WriteLine($"Tunnel {i} ist verbunden.");
-    } catch(Exception ex)
+    try
     {
+        Kaenx.Konnect.Connections.KnxIpTunneling conn = new (ip, port);
+        await conn.Connect(true);
+        conns.Add(new(i, conn, show));
+        Console.WriteLine($"Tunnel {i} ist verbunden.");
+    } catch(Exception ex) {
         Console.WriteLine($"Tunnel {i} konnte nicht aufgebaut werden.");
         Console.WriteLine(ex.Message);
     }
 }
 
 Console.CancelKeyPress += delegate {
-    foreach(Kaenx.Konnect.Connections.KnxIpTunneling conn in conns)
-        conn.Disconnect();
+    foreach(TunnelConnection conn in conns)
+        conn.Connection.Disconnect();
 };
 
-if(tunnels.Count == 0)
+if(conns.Count == 0)
 {
     Console.WriteLine("Kein Tunnel zum Testen vorhanden.");
     return;
@@ -66,9 +65,9 @@ while(true)
 {
     if(send)
     {
-        foreach(Kaenx.Konnect.Classes.BusCommon tun in tunnels)
+        foreach(TunnelConnection conn in conns)
         {
-            _ = tun.GroupValueWrite(group, data);
+            _ = conn.Tunnel.GroupValueWrite(group, data);
         }
     }
 }
